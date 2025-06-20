@@ -3,6 +3,53 @@ import { Calendar, Users, MapPin, Phone, Mail, Building } from 'lucide-react';
 
 const OrganizeCamp = () => {
   const [organizationType, setOrganizationType] = useState('college');
+  const [formData, setFormData] = useState({
+    organizationName: '',
+    contactPerson: '',
+    email: '',
+    phone: '',
+    address: '',
+    preferredDate: '',
+    participants: '',
+    additionalRequirements: ''
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/blood-camps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, organizationType })
+      });
+
+      if (response.ok) {
+        alert('✅ Blood camp request submitted!');
+        setFormData({
+          organizationName: '',
+          contactPerson: '',
+          email: '',
+          phone: '',
+          address: '',
+          preferredDate: '',
+          participants: '',
+          additionalRequirements: ''
+        });
+        setOrganizationType('college');
+      } else {
+        alert('❌ Submission failed.');
+      }
+    } catch (error) {
+      alert('❌ Error: ' + error.message);
+    }
+  };
+
+
 
   return (
     <section id="organize-camp" className="py-20 bg-gray-50">
@@ -18,7 +65,7 @@ const OrganizeCamp = () => {
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-4">Organization Type *</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -74,6 +121,9 @@ const OrganizeCamp = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Organization Name *</label>
                 <input 
                   type="text" 
+                  name="organizationName"
+                  value={formData.organizationName}
+                  onChange={handleChange}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Enter organization name"
                   required
@@ -83,6 +133,9 @@ const OrganizeCamp = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Contact Person *</label>
                 <input 
                   type="text" 
+                  name="contactPerson"
+                  value={formData.contactPerson}
+                  onChange={handleChange}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="Your full name"
                   required
@@ -94,7 +147,10 @@ const OrganizeCamp = () => {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
                 <input 
-                  type="email" 
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange} 
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="your.email@example.com"
                   required
@@ -104,6 +160,9 @@ const OrganizeCamp = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
                 <input 
                   type="tel" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="+91 XXXXX XXXXX"
                   required
@@ -114,6 +173,9 @@ const OrganizeCamp = () => {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Complete Address *</label>
               <textarea 
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
                 rows={3}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Full address where the camp will be organized"
@@ -125,14 +187,21 @@ const OrganizeCamp = () => {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Date *</label>
                 <input 
-                  type="date" 
+                  type="date"
+                  name="preferredDate"
+                  value={formData.preferredDate}
+                  onChange={handleChange} 
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Expected Participants</label>
-                <select className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <select 
+                name="participants"
+                value={formData.participants}
+                onChange={handleChange}
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
                   <option value="">Select range</option>
                   <option value="25-50">25-50 people</option>
                   <option value="50-100">50-100 people</option>
@@ -145,6 +214,9 @@ const OrganizeCamp = () => {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Additional Requirements</label>
               <textarea 
+                name="additionalRequirements"
+                value={formData.additionalRequirements}
+                onChange={handleChange}
                 rows={4}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Any specific requirements, facilities available, or additional information..."
