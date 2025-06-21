@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const BloodDonation = require('../models/BloodDonation');
 
-router.post('/donations', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { name, bloodType, phone, center } = req.body;
 
