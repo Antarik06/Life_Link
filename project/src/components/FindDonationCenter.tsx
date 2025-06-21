@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { MapPin, Phone, Clock, Navigation, Star } from 'lucide-react';
 
 const FindDonationCenter = () => {
-  const [selectedCity, setSelectedCity] = useState('Mumbai');
+  const [selectedCity, setSelectedCity] = useState('NewTown');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'];
+  const cities = ['NewTown', 'SectorV', 'Bidhannagar', 'Dum Dum', 'Sodpur', 'Barrackpore', 'Belghoria', 'Rajarhat'];
 
   const donationCenters = {
-    Mumbai: [
+    NewTown: [
       {
         name: "Tata Memorial Hospital Blood Bank",
-        address: "Dr. E Borges Road, Parel, Mumbai - 400012",
+        address: "Dr. E Borges Road, Parel, NewTown - 400012",
         phone: "+91 22 2417 7000",
         hours: "24/7",
         rating: 4.8,
@@ -20,7 +20,7 @@ const FindDonationCenter = () => {
       },
       {
         name: "KEM Hospital Blood Bank",
-        address: "Acharya Donde Marg, Parel, Mumbai - 400012",
+        address: "Acharya Donde Marg, Parel, NewTown - 400012",
         phone: "+91 22 2413 6051",
         hours: "8:00 AM - 8:00 PM",
         rating: 4.6,
@@ -29,7 +29,7 @@ const FindDonationCenter = () => {
       },
       {
         name: "Lilavati Hospital Blood Bank",
-        address: "A-791, Bandra Reclamation, Mumbai - 400050",
+        address: "A-791, Bandra Reclamation, NewTown - 400050",
         phone: "+91 22 2640 2323",
         hours: "24/7",
         rating: 4.7,
@@ -37,10 +37,10 @@ const FindDonationCenter = () => {
         bloodTypes: ["O+", "B+", "AB+", "O-", "B-"]
       }
     ],
-    Delhi: [
+    SectorV: [
       {
         name: "AIIMS Blood Bank",
-        address: "Ansari Nagar, New Delhi - 110029",
+        address: "Ansari Nagar, New SectorV - 110029",
         phone: "+91 11 2658 8500",
         hours: "24/7",
         rating: 4.9,
@@ -49,7 +49,7 @@ const FindDonationCenter = () => {
       },
       {
         name: "Safdarjung Hospital Blood Bank",
-        address: "Ansari Nagar West, New Delhi - 110029",
+        address: "Ansari Nagar West, New SectorV - 110029",
         phone: "+91 11 2673 0000",
         hours: "24/7",
         rating: 4.5,
@@ -57,10 +57,10 @@ const FindDonationCenter = () => {
         bloodTypes: ["O+", "B+", "A+", "AB-"]
       }
     ],
-    Bangalore: [
+    Bidhannagar: [
       {
         name: "Manipal Hospital Blood Bank",
-        address: "98, Rustum Bagh, Airport Road, Bangalore - 560017",
+        address: "98, Rustum Bagh, Airport Road, Bidhannagar - 560017",
         phone: "+91 80 2502 4444",
         hours: "24/7",
         rating: 4.7,
