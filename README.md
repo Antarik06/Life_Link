@@ -27,9 +27,6 @@ LifeLink is a modern, visually appealing Flutter app designed to connect blood d
 - **Sign Out:**
   - Clears user data and returns to Welcome screen
 
-## Screenshots
-
-> Add screenshots here for Welcome, Home, Request Blood, and FAQ screens
 
 ## Getting Started
 
@@ -65,9 +62,5 @@ LifeLink is a modern, visually appealing Flutter app designed to connect blood d
 ## Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## License
-[MIT](LICENSE)
-
----
 
 **Crafted With ❤️ by Team Codeus**
