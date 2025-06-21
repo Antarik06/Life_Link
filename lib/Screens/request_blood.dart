@@ -126,7 +126,7 @@ class _RequestBloodPageState extends State<RequestBlood> {
                         const SizedBox(height: 20),
                         Center(
                           child: AnimatedScale(
-                            scale: isSubmitting ? 0.98 : 1.0,
+                            scale: isSubmitting ? 0.97 : 1.0,
                             duration: const Duration(milliseconds: 120),
                             child: GestureDetector(
                               onTapDown:
@@ -136,6 +136,7 @@ class _RequestBloodPageState extends State<RequestBlood> {
                               onTapCancel:
                                   () => setState(() => isSubmitting = false),
                               child: Container(
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                     colors: [
@@ -145,12 +146,12 @@ class _RequestBloodPageState extends State<RequestBlood> {
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: BorderRadius.circular(18),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.redAccent.withOpacity(0.18),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 4),
+                                      blurRadius: 16,
+                                      offset: const Offset(0, 6),
                                     ),
                                   ],
                                 ),
@@ -158,28 +159,30 @@ class _RequestBloodPageState extends State<RequestBlood> {
                                   icon:
                                       isSubmitting
                                           ? const SizedBox(
-                                            width: 20,
-                                            height: 20,
+                                            width: 24,
+                                            height: 24,
                                             child: CircularProgressIndicator(
                                               color: Colors.white,
                                               strokeWidth: 2.2,
                                             ),
                                           )
                                           : const Icon(
-                                            Icons.send,
+                                            Icons.bloodtype,
                                             color: Colors.white,
+                                            size: 28,
                                           ),
                                   label: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 2.0,
+                                      vertical: 4.0,
                                     ),
                                     child: Text(
                                       isSubmitting
                                           ? "Submitting..."
                                           : "Submit Blood Request",
                                       style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.1,
                                       ),
                                     ),
                                   ),
@@ -211,12 +214,12 @@ class _RequestBloodPageState extends State<RequestBlood> {
                                             }
                                           },
                                   style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(220, 50),
+                                    minimumSize: const Size.fromHeight(54),
                                     backgroundColor: Colors.transparent,
                                     shadowColor: Colors.transparent,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(18),
                                     ),
                                   ),
                                 ),
