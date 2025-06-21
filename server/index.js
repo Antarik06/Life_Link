@@ -17,6 +17,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch((err) => console.error("❌ MongoDB connection error:", err));
 
+const donationRoutes = require('./routes/donationRoutes');
+app.use('/api', donationRoutes);
+
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
