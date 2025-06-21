@@ -196,7 +196,7 @@ const FindDonationCenter: React.FC = () => {
       {showRequestModal && selectedCenter && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
-            <h3 className="text-lg font-bold mb-4">Request Blood from {selectedCenter.name}</h3>
+            <h3 className="text-lg font-bold mb-4">Donate Blood to {selectedCenter.name}</h3>
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
