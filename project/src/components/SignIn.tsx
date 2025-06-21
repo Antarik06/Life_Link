@@ -20,10 +20,41 @@ const SignIn: React.FC<SignInProps> = ({ onClose, onSignIn }) => {
     lastDonation: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSignIn();
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  const endpoint = isLogin 
+    ? 'http://localhost:5000/api/auth/login'
+    : 'http://localhost:5000/api/auth/register';
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(`❌ ${data.message}`);
+      return;
+    }
+
+    if (isLogin) {
+      // Save token in localStorage (optional)
+      localStorage.setItem('token', data.token);
+      alert('✅ Login successful');
+      onSignIn();
+    } else {
+      alert('✅ Registered successfully! Please log in.');
+      setIsLogin(true); // Switch to login mode
+    }
+  } catch (error) {
+    alert('❌ Error: ' + error.message);
+  }
+};
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({

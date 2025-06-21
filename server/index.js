@@ -17,6 +17,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch((err) => console.error("❌ MongoDB connection error:", err));
 
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
 const bloodCampRoutes = require('./routes/bloodCampRoutes');
 app.use('/api/blood-camps', bloodCampRoutes);
 // Test route

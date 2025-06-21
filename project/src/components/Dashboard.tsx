@@ -1,46 +1,64 @@
-import React, { useState } from 'react';
-import { User, Droplets, Calendar, MapPin, Bell, Settings, Award, Heart, Phone, Mail } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { User, Droplets, Calendar, MapPin, Bell, Settings, Award, Heart } from 'lucide-react';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('profile');
+  const [userProfile, setUserProfile] = useState(null);
 
-  const userProfile = {
-    name: "John Doe",
-    email: "john.doe@email.com",
-    phone: "+91 98765 43210",
-    bloodType: "O+",
-    weight: "70",
-    dateOfBirth: "1990-05-15",
-    lastDonation: "2024-01-15",
-    totalDonations: 8,
-    location: "Mumbai, Maharashtra"
-  };
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
 
-  const donationHistory = [
-    { date: "2024-01-15", location: "Tata Memorial Hospital", units: 1, status: "Completed" },
-    { date: "2023-10-20", location: "KEM Hospital", units: 1, status: "Completed" },
-    { date: "2023-07-12", location: "Lilavati Hospital", units: 1, status: "Completed" },
-    { date: "2023-04-08", location: "Blood Bank Drive", units: 1, status: "Completed" }
-  ];
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || 'Failed to fetch user');
+        }
+
+        setUserProfile(data);
+      } catch (err) {
+        console.error('Error:', err.message);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const upcomingRequests = [
-    { 
-      id: 1, 
-      bloodType: "O+", 
-      location: "Fortis Hospital, Andheri", 
-      urgency: "Critical", 
-      distance: "2.3 km",
-      requestedBy: "Emergency Department"
-    },
-    { 
-      id: 2, 
-      bloodType: "O+", 
-      location: "Hinduja Hospital, Mahim", 
-      urgency: "Urgent", 
-      distance: "4.1 km",
-      requestedBy: "Dr. Sharma"
-    }
-  ];
+  { 
+    id: 1, 
+    bloodType: "O+", 
+    location: "Fortis Hospital, Andheri", 
+    urgency: "Critical", 
+    distance: "2.3 km",
+    requestedBy: "Emergency Department"
+  },
+  { 
+    id: 2, 
+    bloodType: "O+", 
+    location: "Hinduja Hospital, Mahim", 
+    urgency: "Urgent", 
+    distance: "4.1 km",
+    requestedBy: "Dr. Sharma"
+  }
+];
+
+
+
+    if (!userProfile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-lg">Loading profile...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
@@ -51,47 +69,7 @@ const Dashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <Droplets className="h-8 w-8 text-red-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Donations</p>
-                <p className="text-2xl font-bold text-gray-900">{userProfile.totalDonations}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <Heart className="h-8 w-8 text-red-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Lives Saved</p>
-                <p className="text-2xl font-bold text-gray-900">{userProfile.totalDonations * 3}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <Calendar className="h-8 w-8 text-red-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Last Donation</p>
-                <p className="text-lg font-bold text-gray-900">Jan 15, 2024</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center">
-              <Award className="h-8 w-8 text-red-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Status</p>
-                <p className="text-lg font-bold text-green-600">Available</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -110,26 +88,8 @@ const Dashboard = () => {
                   >
                     Profile
                   </button>
-                  <button
-                    onClick={() => setActiveTab('history')}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                      activeTab === 'history'
-                        ? 'border-red-500 text-red-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    Donation History
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('settings')}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                      activeTab === 'settings'
-                        ? 'border-red-500 text-red-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    Settings
-                  </button>
+                  
+                  
                 </nav>
               </div>
 
