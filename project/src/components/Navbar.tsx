@@ -24,30 +24,30 @@ const Navbar: React.FC<NavbarProps> = ({ isSignedIn, onSignInClick, onSignOut })
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <a href="#home" className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              <Link to="/" state={{ scrollToId: 'home' }} className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 Home
-              </a>
-              <a href="#compatibility" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'compatibility' }} className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 Blood Types
-              </a>
-              <a href="#find-center" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'find-center' }} className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 Find Centers
-              </a>
-              <a href="#request-blood" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'request-blood' }} className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 Request Blood
-              </a>
-              <a href="#organize-camp" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'organize-camp' }} className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 Organize Camp
-              </a>
-              <a href="#about" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'about' }} className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
                 About
-              </a>
-              
+              </Link>
+
               {isSignedIn ? (
                 <div className="flex items-center space-x-4">
                   <Link to="/dashboard" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center">
                     <User className="h-4 w-4 mr-1" />
-                    Dashboard
+                    Profile
                   </Link>
                   <button
                     onClick={onSignOut}
@@ -83,25 +83,25 @@ const Navbar: React.FC<NavbarProps> = ({ isSignedIn, onSignInClick, onSignOut })
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-              <a href="#home" className="text-gray-900 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              <Link to="/" state={{ scrollToId: 'home' }} className="text-gray-900 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 Home
-              </a>
-              <a href="#compatibility" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'compatibility' }} className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 Blood Types
-              </a>
-              <a href="#find-center" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'find-center' }} className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 Find Centers
-              </a>
-              <a href="#request-blood" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'request-blood' }} className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 Request Blood
-              </a>
-              <a href="#organize-camp" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'organize-camp' }} className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 Organize Camp
-              </a>
-              <a href="#about" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
+              </Link>
+              <Link to="/" state={{ scrollToId: 'about' }} className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">
                 About
-              </a>
-              
+              </Link>
+
               {isSignedIn ? (
                 <div className="space-y-1">
                   <Link to="/dashboard" className="text-gray-700 hover:text-red-600 block px-3 py-2 text-base font-medium">

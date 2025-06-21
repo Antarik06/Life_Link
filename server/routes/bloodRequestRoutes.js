@@ -23,4 +23,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const requests = await BloodRequest.find().sort({ requestedAt: -1 });
+    res.status(200).json(requests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch blood requests.' });
+  }
+});
+
 module.exports = router;

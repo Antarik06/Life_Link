@@ -166,7 +166,7 @@ const FindDonationCenter: React.FC = () => {
                       }}
                       className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors duration-200"
                     >
-                      Request Now
+                      Donate Now
                     </button>
 
                     <button

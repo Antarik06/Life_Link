@@ -21,4 +21,14 @@ router.post('/donations', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const donations = await BloodDonation.find().sort({ donatedAt: -1 });
+    res.status(200).json(donations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch donation requests.' });
+  }
+});
+
 module.exports = router;

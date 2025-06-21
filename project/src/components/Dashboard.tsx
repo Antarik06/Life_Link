@@ -64,7 +64,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
           <p className="text-gray-600 mt-2">Welcome back, {userProfile.name}!</p>
         </div>
 
@@ -140,18 +140,9 @@ const Dashboard = () => {
                           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                         />
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                        <input
-                          type="text"
-                          value={userProfile.location}
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                        />
-                      </div>
+                      
                     </div>
-                    <button className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200">
-                      Update Profile
-                    </button>
+                    
                   </div>
                 )}
 
@@ -214,54 +205,10 @@ const Dashboard = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Upcoming Requests */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <Bell className="h-5 w-5 text-red-600 mr-2" />
-                Blood Requests Near You
-              </h3>
-              <div className="space-y-4">
-                {upcomingRequests.map((request) => (
-                  <div key={request.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">
-                        {request.bloodType}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                        request.urgency === 'Critical' 
-                          ? 'bg-red-100 text-red-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {request.urgency}
-                      </span>
-                    </div>
-                    <p className="font-medium text-gray-900 text-sm">{request.location}</p>
-                    <p className="text-xs text-gray-600">{request.distance} • {request.requestedBy}</p>
-                    <button className="w-full mt-3 bg-red-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors duration-200">
-                      Respond to Request
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-              <div className="space-y-3">
-                <button className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200 flex items-center justify-center">
-                  <Droplets className="h-4 w-4 mr-2" />
-                  Schedule Donation
-                </button>
-                <button className="w-full border border-red-600 text-red-600 py-3 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200 flex items-center justify-center">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  Find Centers
-                </button>
-                <button className="w-full border border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  View Calendar
-                </button>
-              </div>
-            </div>
+                
           </div>
         </div>
       </div>

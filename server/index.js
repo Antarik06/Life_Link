@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 const donationRoutes = require('./routes/donationRoutes');
-app.use('/api', donationRoutes);
+app.use('/api/donations', donationRoutes);
 
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);

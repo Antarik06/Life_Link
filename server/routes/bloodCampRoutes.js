@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const BloodCamp = require('../models/BloodCamp');
 
+// POST: Submit new blood camp
 router.post('/', async (req, res) => {
   try {
     console.log("📥 Incoming data:", req.body);
@@ -27,5 +28,15 @@ router.post('/', async (req, res) => {
   }
 });
 
+// ✅ GET: Fetch all blood camps for admin dashboard
+router.get('/', async (req, res) => {
+  try {
+    const camps = await BloodCamp.find().sort({ preferredDate: -1 });
+    res.status(200).json(camps);
+  } catch (err) {
+    console.error("❌ Fetch Error:", err.message);
+    res.status(500).json({ message: 'Failed to fetch blood camps.' });
+  }
+});
 
 module.exports = router;
