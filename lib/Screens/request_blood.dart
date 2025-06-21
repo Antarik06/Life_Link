@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class RequestBlood extends StatefulWidget {
@@ -10,6 +12,68 @@ class _RequestBloodPageState extends State<RequestBlood> {
   String? selectedBloodType;
   String urgency = "Normal";
   bool isSubmitting = false;
+  List<Map<String, dynamic>> dummyRequests = [];
+
+  final TextEditingController patientNameController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController unitsController = TextEditingController();
+  final TextEditingController hospitalController = TextEditingController();
+  final TextEditingController infoController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDummyRequests();
+  }
+
+  @override
+  void dispose() {
+    patientNameController.dispose();
+    contactController.dispose();
+    unitsController.dispose();
+    hospitalController.dispose();
+    infoController.dispose();
+    super.dispose();
+  }
+
+  Future<void> fetchDummyRequests() async {
+    try {
+      final res = await http.get(
+        Uri.parse('http://10.230.246.75:3000/api/request-blood'),
+      );
+      if (res.statusCode == 200) {
+        final List<dynamic> data = json.decode(res.body);
+        setState(() {
+          dummyRequests = List<Map<String, dynamic>>.from(data);
+        });
+      }
+    } catch (e) {
+      // Optionally show error
+    }
+  }
+
+  Future<void> submitRequest(Map<String, dynamic> requestData) async {
+    try {
+      final res = await http.post(
+        Uri.parse('http://10.230.246.75:3000/api/request-blood'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(requestData),
+      );
+      if (res.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Blood request submitted!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to submit request.')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Network error.')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +144,14 @@ class _RequestBloodPageState extends State<RequestBlood> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTextField("Patient Name"),
+                        _buildTextField(
+                          "Patient Name",
+                          controller: patientNameController,
+                        ),
                         _buildTextField(
                           "Contact Number",
                           keyboardType: TextInputType.phone,
+                          controller: contactController,
                         ),
                         const SizedBox(height: 10),
                         DropdownButtonFormField<String>(
@@ -111,8 +179,12 @@ class _RequestBloodPageState extends State<RequestBlood> {
                         _buildTextField(
                           "Units Required",
                           keyboardType: TextInputType.number,
+                          controller: unitsController,
                         ),
-                        _buildTextField("Hospital/Location"),
+                        _buildTextField(
+                          "Hospital/Location",
+                          controller: hospitalController,
+                        ),
                         const SizedBox(height: 20),
                         Text(
                           "Urgency Level",
@@ -122,7 +194,11 @@ class _RequestBloodPageState extends State<RequestBlood> {
                         ),
                         _buildUrgencySelector(),
                         const SizedBox(height: 20),
-                        _buildTextField("Additional Information", maxLines: 4),
+                        _buildTextField(
+                          "Additional Information",
+                          maxLines: 4,
+                          controller: infoController,
+                        ),
                         const SizedBox(height: 20),
                         Center(
                           child: AnimatedScale(
@@ -195,22 +271,28 @@ class _RequestBloodPageState extends State<RequestBlood> {
                                               setState(
                                                 () => isSubmitting = true,
                                               );
-                                              await Future.delayed(
-                                                const Duration(seconds: 2),
-                                              ); // Simulate submit
+                                              final requestData = {
+                                                'name':
+                                                    patientNameController.text,
+                                                'phone': contactController.text,
+                                                'bloodType': selectedBloodType,
+                                                'units':
+                                                    int.tryParse(
+                                                      unitsController.text,
+                                                    ) ??
+                                                    1,
+                                                'hospital':
+                                                    hospitalController.text,
+                                                'urgency':
+                                                    urgency.toLowerCase(),
+                                                'additionalInfo':
+                                                    infoController.text,
+                                              };
+                                              await submitRequest(requestData);
                                               if (mounted)
                                                 setState(
                                                   () => isSubmitting = false,
                                                 );
-                                              ScaffoldMessenger.of(
-                                                context,
-                                              ).showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                    'Blood request submitted!',
-                                                  ),
-                                                ),
-                                              );
                                             }
                                           },
                                   style: ElevatedButton.styleFrom(
@@ -288,10 +370,12 @@ class _RequestBloodPageState extends State<RequestBlood> {
     String label, {
     TextInputType keyboardType = TextInputType.text,
     int maxLines = 1,
+    TextEditingController? controller,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        controller: controller,
         keyboardType: keyboardType,
         maxLines: maxLines,
         decoration: InputDecoration(
